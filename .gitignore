@@ -1,8 +1,6 @@
 # Python Umgebung & Cache
-venv/
-__pycache__/
-*.pyc
+.venv/
 .python-version
 
-# Der "data/" Ordner ohne Inhalt
+# Inhalt des data/ Ordners
 data/*

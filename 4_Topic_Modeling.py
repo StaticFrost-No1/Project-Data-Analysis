@@ -17,9 +17,10 @@ INPUT_FILE = "data/corpus_cleaned.pkl"
 OUTPUT_FILE = "data/topics_output.txt"
 
 # Variablen zur Anpassung von Umfang und Systemauslastung
-SAMPLE_FRAC = 0.60 # Sampling-Rate (0.60 = 60% der Daten)
-NUM_TOPICS  = 5 # Empfohlene Themenzahl K
-WORKERS = 4 # Zahl der verwendeten CPU-Kerne
+SAMPLE_FRAC = 0.60  # Sampling-Rate (0.60 = 60% der Daten)
+NUM_TOPICS  = 5     # Empfohlene Themenzahl K
+WORKERS = 4         # Zahl der verwendeten CPU-Kerne
+PASSES = 10         # Anzahl der kompletten Durchläufe
 
 def save_output(text):
     with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
@@ -118,7 +119,7 @@ def main():
         id2word=dictionary,     # Mapping von Wort-IDs zurück zu echten Wörtern
         num_topics=NUM_TOPICS,  # Die ermittelte optimale Anzahl an Themen
         workers=WORKERS,        # Anzahl der CPU-Kerne
-        passes=10,              # Anzahl der kompletten Durchläufe
+        passes=PASSES,          # Anzahl der kompletten Durchläufe
         chunksize=2000,         # Anzahl der Dokumente, die gleichzeitig in den RAM geladen
         random_state=42
     )
