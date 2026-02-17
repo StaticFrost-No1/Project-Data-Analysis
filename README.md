@@ -17,8 +17,7 @@ Das Projekt vergleicht verschiedene Vektorisierungs- und Modellierungsansätze, 
 Für die Reproduzierbarkeit wurde ein Seed eingefügt, um sicherzustellen, dass bei der Anwendung von Grid-Search immer die gleichen Daten geladen werden. 
 Die Analyse zeigte signifikante Unterschiede zwischen den Verfahren:
 
-1.  **NMF vs. LDA:** NMF lieferte deutlich trennschärfere Ergebnisse für die vorliegenden Kurztexte. LDA neigte stärker zu thematischem Rauschen.
-2.  **Optimale Themenzahl:** Durch Kohärenz-Analysen auf Teildatensätzen (20-80%) wurde **$K=5$** als optimales Cluster-Setup ermittelt.
+1.  **Identifizierte Pipeline (TF-IDF & NMF):** Die Kombination aus **TF-IDF** und **NMF** erwies sich als einziger robuster Ansatz. Während Word2Vec keine kohärenten Cluster für die Themenmodellierung lieferte und LDA zu thematischem Rauschen neigte, erzeugte NMF die mit Abstand trennschärfsten Ergebnisse.2.  **Optimale Themenzahl:** Durch Kohärenz-Analysen auf Teildatensätzen (20-80%) wurde **$K=5$** als optimales Cluster-Setup ermittelt.
 3.  **Identifizierte Themen:**
     * Inkasso & Schulden (*Debt Collection*)
     * Credit Reporting (*Fehlerhafte Einträge*)
@@ -65,7 +64,6 @@ Folgen Sie den Bildschirmanweisungen, um pyenv zur Shell hinzuzufügen.
     ```
 
 5. **Abhängigkeiten installieren:**
-    Nötige Pakete sind u.a. `pandas`, `gensim`, `scikit-learn`, `matplotlib`, `nltk`
 
     ```bash
     pip install -r requirements.txt
@@ -84,19 +82,19 @@ Die Skripte sollten idealerweise in folgender Reihenfolge ausgeführt werden:
 
 1.  **Preprocessing:** Bereinigung der Rohdaten.
     ```bash
-    python3 1_preprocessing.py
+    python 1_preprocessing.py
     ```
 2.  **Vektorisierung:** Erstellung der TF-IDF und Word2Vec Modelle.
     ```bash
-    python3 2_vectorization.py
+    python 2_vectorization.py
     ```
 3.  **Kohärenz-Berechnung:** Suche nach dem optimalen $K$.
     ```bash
-    python3 3_optimization_coherence.py
+    python 3_optimization_coherence.py
     ```
 4.  **Themen-Modellierung:** Generierung der Themen mit NMF.
     ```bash
-    python3 4_final_topic_modeling.py
+    python 4_final_topic_modeling.py
     ```
 
 ### Parameter
