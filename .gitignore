@@ -2,5 +2,5 @@
 .venv/
 .python-version
 
-# Inhalt des data/ Ordners
+# Inhalt des Ordners data/ 
 data/*

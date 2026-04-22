@@ -1,18 +1,23 @@
 import pandas as pd
 import pickle
 import os
-import sys
-import multiprocessing
-import numpy as np
+import time  # <--- Hier gehört es hin!
 from sklearn.feature_extraction.text import TfidfVectorizer
-from gensim.models import Word2Vec
+
 
 # ==========================================
 # KONFIGURATION
 # ==========================================
-INPUT_FILE = "data/corpus_cleaned.pkl"
-OUTPUT_TFIDF = "data/tfidf_data.pkl"
-OUTPUT_W2V = "data/w2v_model.model"
+
+# Pfade
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) # Der Unterordner dieses Skriptes
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)                  # Einen Ordner nach oben springen zum Projekt-Hauptverzeichnis
+DATA_DIR = os.path.join(ROOT_DIR, "data")               # Den 'data'-Ordner absolut vom Hauptverzeichnis aus definieren
+
+# Dateien
+INPUT_FILE = os.path.join(DATA_DIR, "corpus_cleaned.pkl")   # Datei, die zur Verarbeitung eingelesen wird
+OUTPUT_TFIDF = os.path.join(DATA_DIR, "vec_tfidf_data.pkl") # Name der ausgegebenen Datei
+
 
 # ==========================================
 # TF-IDF FUNKTION
@@ -63,92 +68,39 @@ def run_tfidf(df):
         pickle.dump((tfidf_matrix, vectorizer), f)
     print(f"TF-IDF Matrix erfolgreich gespeichert in '{OUTPUT_TFIDF}'")
 
-# ==========================================
-# WORD2VEC FUNKTION
-# ==========================================
-def run_word2vec(df):
-    """
-    Trainiert ein Word Embedding Modell.
-    Ziel ist es, Wörter in Vektoren umwandeln, sodass Wörter mit ähnlicher Bedeutung
-    im mathematischen Raum nah beieinander liegen.
-    """
-    print("\n" + "="*50)
-    print("   METHODE B: Semantische Vektorisierung (Word2Vec)")
-    print("="*50)
-
-    # 1. Vorbereitung (Tokenisierung)
-    # Gensim benötigt eine Liste von Listen: [['wort1', 'wort2'], ['wort3', 'wort4']]
-    print("1. Bereite Sätze für das neuronale Netz vor...")
-    tokenized_sentences = [text.split() for text in df['clean_text']]
-    
-    # 2. Training des Modells
-    # Nutzt alle verfügbaren CPU-Kerne minus 1, um das System nicht einzufrieren
-    cores = max(1, multiprocessing.cpu_count() - 1)
-    print(f"2. Starte Training mit {cores} CPU-Kernen...")
-    
-    model = Word2Vec(
-        sentences=tokenized_sentences, 
-        vector_size=100, # Dimension: Jedes Wort wird durch 100 Zahlen repräsentiert
-        window=5,        # Kontext: Das Modell schaut 5 Wörter nach links und rechts
-        min_count=2,     # Rauschen: Wörter, die nur 1x vorkommen, werden ignoriert
-        workers=cores,   # Parallelisierung
-        seed=42          # Reproduzierbarkeit
-    )
-    
-    # 3. Validierung (Semantik-Check)
-    # Testet qualitativ, ob das Modell "verstanden" hat, was die Wörter bedeuten.
-    print("\n--- Validierung: Semantische Ähnlichkeiten ---")
-    check_terms = ['money', 'credit', 'bank', 'scam']
-    
-    for term in check_terms:
-        # Kontrolliert, ob das Wort im Vokabular ist 
-        if term in model.wv:
-            # most_similar berechnet die Kosinus-Ähnlichkeit im Vektorraum
-            similar = model.wv.most_similar(term, topn=3)
-            words = [w[0] for w in similar]
-            print(f"   Kontext zu '{term}': {words}")
-        else:
-            print(f"   Begriff '{term}' wurde weggefiltert (zu selten).")
-
-    # 4. Speichern des Modells
-    model.save(OUTPUT_W2V)
-    print(f"Word2Vec Modell erfolgreich gespeichert in '{OUTPUT_W2V}'")
 
 # ==========================================
 # MAIN
 # ==========================================
 def main():
+    start_time = time.time()
+    
     print("==========================================")
-    print("   PHASE 2: Vektorisierung (Vergleich)")
+    print("   PHASE 3a: Vektorisierung (TF-IDF)")
     print("==========================================")
 
     # 1. Eingabedatei prüfen
     if not os.path.exists(INPUT_FILE):
-        print(f"FEHLER: Datei '{INPUT_FILE}' fehlt.")
-        print("Bitte führe zuerst '1_Data_Pipeline.py' aus.")
+        print(f"\n[FEHLER] Datei '{INPUT_FILE}' fehlt.")
+        print("Bitte führe zuerst '2_Preprocessing.py' aus.")
         return
 
-    # 2. Daten laden (nur einmal für beide Methoden!)
+    # 2. Daten laden
     print("Lade bereinigte Daten...")
     df = pd.read_pickle(INPUT_FILE)
     
     # Sicherheitscheck: Leere Texte entfernen, um Fehler bei der Berechnung zu vermeiden
     df = df[df['clean_text'].str.len() > 0].reset_index(drop=True)
-    print(f"Daten geladen: {len(df)} Dokumente bereit zur Analyse.")
+    print(f"   Daten geladen: {len(df)} Dokumente bereit zur Analyse.")
 
-    # 3. Methode A ausführen (Statistik)
+    # 3. TF-IDF ausführen
     run_tfidf(df)
 
-    # 4. Methode B ausführen (Semantik)
-    run_word2vec(df)
-
-    # 5. Abschlussbericht
-    print("\n" + "="*50)
-    print("   ABSCHLUSS PHASE 2")
-    print("="*50)
-    print("Beide Vektorisierungsarten wurden erfolgreich durchgeführt.")
-    print("-> TF-IDF Matrix liegt in 'data/tfidf_data.pkl'")
-    print("-> Word2Vec Modell liegt in 'data/w2v_model.model'")
+    # 4. Abschlussbericht
+    duration = time.time() - start_time
+    print("\n" + "="*42)
+    print(f"   ABSCHLUSS PHASE 3a ({duration:.1f}s)")
+    print("="*42)
 
 if __name__ == "__main__":
     main()

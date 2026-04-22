@@ -6,12 +6,19 @@ from gensim.models import CoherenceModel, LdaMulticore
 import os
 import time
 
+
 # ==========================================
 # KONFIGURATION
 # ==========================================
-# Input und Output
-INPUT_FILE = "data/corpus_cleaned.pkl" # Datensatz wird geladen
-PLOT_FILE  = "data/coherence_plot.png"  # Name der erstellten Grafik
+
+# Pfade
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__)) # Der Unterordner dieses Skriptes
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)                  # Einen Ordner nach oben springen zum Projekt-Hauptverzeichnis
+DATA_DIR = os.path.join(ROOT_DIR, "data")               # Den 'data'-Ordner absolut vom Hauptverzeichnis aus definieren
+
+# Dateien (Input und Output)
+INPUT_FILE = os.path.join(DATA_DIR, "corpus_cleaned.pkl") # Datei, die zur Verarbeitung eingelesen wird
+PLOT_FILE  = os.path.join(DATA_DIR, "coherence_plot.png") # Name der erstellten Grafik
 
 # Suchbereich für die Themenanzahl
 K_START = 4    # Start bei x Themen
@@ -19,9 +26,11 @@ K_LIMIT = 8   # Limit bei x Themen
 K_STEP  = 1    # Jeden x Schritt testen (1,2,3 oder 2,4,6)
 
 # Performance & Sampling
-SAMPLE_FRAC = 0.80  # Prozentsatz verarbeiteter Daten (0.20 = 20% - 1.00 = 100%)
-WORKERS     = 14     # Zahl der verwendeten CPU-Kerne, um den Prozess zu beschleunigen
+# SAMPLE_FRAC und WORKERS erhöhen den RAM verbrauch, PASSES nur die Zeit.
+SAMPLE_FRAC = 0.60  # Prozentsatz verarbeiteter Daten (0.20 = 20% - 1.00 = 100%)
+WORKERS     = 1     # Zahl der verwendeten CPU-Kerne, um den Prozess zu beschleunigen
 PASSES      = 2     # Anzahl der Durchläuft um die Präzision zu verbessern
+
 
 # ==========================================
 # FUNKTION: Berechnung der Scores
@@ -69,6 +78,7 @@ def compute_coherence_values(dictionary, corpus, texts, start, limit, step):
         print(f"Score: {score:.4f} (Dauer: {duration:.1f}s)")
 
     return x_values, coherence_values
+
 
 # ==========================================
 # MAIN
