@@ -43,7 +43,7 @@ def load_database():
         print(f"   Starte Download von Google Drive...")
         try:
             # gdown löst Probleme beim herunterladen größerer Dateien von Google Drive 
-            gdown.download(DATABASE_URL, OUTPUT_FILE, quiet=False, fuzzy=True)
+            gdown.download(DATABASE_URL, OUTPUT_FILE, quiet=False)
             print(f"   Download erfolgreich. Datei gespeichert unter '{OUTPUT_FILE}'.")
         except Exception as e:
             print(f"\n[FEHLER] Download fehlgeschlagen: {e}")
