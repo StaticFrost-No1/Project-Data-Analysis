@@ -87,14 +87,14 @@ Um Kompatibilitätsprobleme zu vermeiden, wird die Verwendung von Linux in Kombi
 
 1. **Virtuelle Umgebung installieren (empfohlen)**
 
-Falls `pyenv` noch nicht installiert ist, folge bitte einer der beiden Anleitungen für Windows oder Linux:
+    Falls `pyenv` noch nicht installiert ist, folge bitte einer der beiden Anleitungen für Windows oder Linux:
 
-<details>
-<summary><strong>Linux</strong></summary>
+    <details>
+    <summary><strong>Linux</strong></summary>
 
-Damit `pyenv` später Python aus dem Quellcode kompilieren kann, müssen zuerst die System-Abhängigkeiten installiert werden.
+    Damit `pyenv` später Python aus dem Quellcode kompilieren kann, müssen zuerst die System-Abhängigkeiten installiert werden.
 
-1. **Abhängigkeiten installieren:**
+    **Abhängigkeiten installieren:**
 
     ```bash
     sudo apt update && sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libffi-dev liblzma-dev git
@@ -105,10 +105,10 @@ Damit `pyenv` später Python aus dem Quellcode kompilieren kann, müssen zuerst 
     source ~/.bashrc
     ```
 
-</details>
+    </details>
 
-<details>
-<summary><strong>Windows</strong></summary>
+    <details>
+    <summary><strong>Windows</strong></summary>
 
     Das offizielle Paket "Microsoft Visual C++ Redistributable" sollte auf dem System installiert sein.
     Es kann hier heruntergeladen werden: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
@@ -130,7 +130,7 @@ Damit `pyenv` später Python aus dem Quellcode kompilieren kann, müssen zuerst 
     Hier benötigt die Powershell einen Neustart.
     Danach kann mit Schritt 2 weiter verfahren werden.
 
-</details>
+    </details>
 
 2. **Repository klonen:**
 
