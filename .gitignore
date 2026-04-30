@@ -1,5 +1,5 @@
 # Python Umgebung & Cache
-.venv/
+.venv
 .python-version
 
 # Inhalt des Ordners data/ 

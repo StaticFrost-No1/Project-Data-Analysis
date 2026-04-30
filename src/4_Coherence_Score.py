@@ -21,14 +21,14 @@ INPUT_FILE = os.path.join(DATA_DIR, "corpus_cleaned.pkl") # Datei, die zur Verar
 PLOT_FILE  = os.path.join(DATA_DIR, "coherence_plot.png") # Name der erstellten Grafik
 
 # Suchbereich für die Themenanzahl
-K_START = 4    # Start bei x Themen
-K_LIMIT = 8   # Limit bei x Themen
+K_START = 2    # Start bei x Themen
+K_LIMIT = 10   # Limit bei x Themen
 K_STEP  = 1    # Jeden x Schritt testen (1,2,3 oder 2,4,6)
 
 # Performance & Sampling
 # SAMPLE_FRAC und WORKERS erhöhen den RAM verbrauch, PASSES nur die Zeit.
 SAMPLE_FRAC = 0.60  # Prozentsatz verarbeiteter Daten (0.20 = 20% - 1.00 = 100%)
-WORKERS     = 1     # Zahl der verwendeten CPU-Kerne, um den Prozess zu beschleunigen
+WORKERS     = 12     # Zahl der verwendeten CPU-Kerne, um den Prozess zu beschleunigen
 PASSES      = 2     # Anzahl der Durchläuft um die Präzision zu verbessern
 
 
