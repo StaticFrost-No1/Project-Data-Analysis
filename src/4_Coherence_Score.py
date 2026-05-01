@@ -27,8 +27,8 @@ K_STEP  = 1    # Jeden x Schritt testen (1,2,3 oder 2,4,6)
 
 # Performance & Sampling
 # SAMPLE_FRAC und WORKERS erhöhen den RAM verbrauch, PASSES nur die Zeit.
-SAMPLE_FRAC = 0.60  # Prozentsatz verarbeiteter Daten (0.20 = 20% - 1.00 = 100%)
-WORKERS     = 12     # Zahl der verwendeten CPU-Kerne, um den Prozess zu beschleunigen
+SAMPLE_FRAC = 0.80  # Prozentsatz verarbeiteter Daten (0.20 = 20% - 1.00 = 100%)
+WORKERS     = 2     # Zahl der verwendeten CPU-Kerne, um den Prozess zu beschleunigen
 PASSES      = 2     # Anzahl der Durchläuft um die Präzision zu verbessern
 
 
@@ -85,7 +85,7 @@ def compute_coherence_values(dictionary, corpus, texts, start, limit, step):
 # ==========================================
 def main():
     print("==========================================")
-    print("     PHASE 3: Coherence Analysis (Sampled)")
+    print("     PHASE 4: Coherence Analysis (Sampled)")
     print("==========================================")
     
     # Daten prüfen

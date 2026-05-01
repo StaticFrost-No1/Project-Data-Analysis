@@ -94,8 +94,6 @@ Um Kompatibilitätsprobleme zu vermeiden, wird die Verwendung von Linux in Kombi
 
     Damit `pyenv` später Python aus dem Quellcode kompilieren kann, müssen zuerst die System-Abhängigkeiten installiert werden.
 
-    **Abhängigkeiten installieren:**
-
     ```bash
     sudo apt update && sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libffi-dev liblzma-dev git
     curl https://pyenv.run | bash
@@ -124,8 +122,7 @@ Um Kompatibilitätsprobleme zu vermeiden, wird die Verwendung von Linux in Kombi
     ```powershell
     [System.Environment]::SetEnvironmentVariable('PYENV', "$env:USERPROFILE\.pyenv\pyenv-win\", 'User')
     [System.Environment]::SetEnvironmentVariable('PYENV_ROOT', "$env:USERPROFILE\.pyenv\pyenv-win\", 'User')
-    [System.Environment]::SetEnvironmentVariable('Path', "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims;" + [System.Environment]    ::GetEnvironmentVariable('Path', 'User'), 'User')
-    ```
+    [System.Environment]::SetEnvironmentVariable('Path', "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims;" + [System.Environment]::GetEnvironmentVariable('Path', 'User'), 'User')    ```
 
     Hier benötigt die Powershell einen Neustart.
     Danach kann mit Schritt 2 weiter verfahren werden.
@@ -150,7 +147,8 @@ Um Kompatibilitätsprobleme zu vermeiden, wird die Verwendung von Linux in Kombi
 
     ```bash
     pyenv exec python -m venv .venv
-    source .venv/bin/activate
+    source .venv/bin/activate # Für Linux
+    .\.venv\Scripts\Activate.ps1 # Für Windows
     ```
 
 5. **Abhängigkeiten installieren:**
@@ -169,16 +167,11 @@ Du kannst das gesamte Projekt entweder bequem über das Hauptmenü steuern oder 
 
 Starte das zentrale Interface im Hauptverzeichnis. Es führt dich interaktiv durch alle Schritte der Pipeline:
 
-<details>
-<summary><strong>Linux</strong></summary>
-
 ```bash
 python data_analyse.py
 ```
 
 Folge den Bildschirmanweisungen, um pyenv zur Shell hinzuzufügen.
-
-</details>
 
 ### Option B: Manuelle Ausführung der Pipeline
 
@@ -198,9 +191,9 @@ Die Ergebnisse der jeweiligen Skripte, wie Pickle-Dateien und Modelle, werden au
     - `python src/4_Coherence_Score.py` (Berechnet den optimalen K-Wert mittels LDA auf einem Teildatensatz)
 
 4.  **Phase 5: Topic Modeling (Vergleich)**
-    - `python src/5a_Topic_Modeling_NMF.py`
-    - `python src/5b_Topic_Modeling_LDA.py`
-    - `python src/5c_Topic_Modeling_KMeans.py`
+    - `python src/5a_Topic_Modeling_NMF.py` (Für NMF)
+    - `python src/5b_Topic_Modeling_LDA.py` (Für LDA)
+    - `python src/5c_Topic_Modeling_KMeans.py` (Für K-Means)
 
 ## Wichtige Parameter
 

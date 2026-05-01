@@ -1,13 +1,42 @@
-print("info")
-#das übergeben der coherence score ist für nmf und lda standard, für kmeans nicht, weil es selber cluster bilden kann
-#es erspart aber rechenzeit, wenn man die zahl der themen aber übermittelt, spart das rechenzeit
+import os
 
-# Die tokenisierung der Daten in 4 muss nochmal vorgenommen werden.
-# Wegen dem Data-Frac, es führt zu Problemen, wenn wir von 100% der tokenisierten Daten nur einen Teil verwenden.abs
+def show_info():
+    """
+    Gibt die Projektinformationen und das Benutzerhandbuch im Terminal aus.
+    """
+    os.system('cls' if os.name == 'nt' else 'clear') # Löscht die Konsole für bessere Übersicht
+    print("\n" + "="*65)
+    print("PROJEKT-INFORMATIONEN & HANDBUCH".center(65))
+    print("="*65 + "\n")
+    
+    print("ÜBER DIESES PROJEKT")
+    print("Dieses interaktive Tool analysiert Kundenbeschwerden aus dem")
+    print("Finanzsektor. Mithilfe von Natural Language Processing (NLP)")
+    print("und Machine Learning werden rohe Textdaten bereinigt,")
+    print("vektorisiert und in thematische Cluster unterteilt, um")
+    print("verborgene Muster und Beschwerdegründe aufzudecken.\n")
+    
+    print("DIE MODULE & PIPELINES")
+    print("Das Hauptmenü führt dich durch die verschiedenen Phasen der")
+    print("Daten-Pipeline. Um den besten Algorithmus zu finden, wurden")
+    print("drei verschiedene Modelle zur Themenmodellierung evaluiert:")
+    print("")
+    print("  • Pipeline A (K-Means) : Stark abhängig von Rauschen/Tippfehlern.")
+    print("  • Pipeline B (LDA)     : Inhaltlich solide, aber unscharf.")
+    print("  • Pipeline C (NMF)     : ⭐ EMPFOHLENE GEWINNER-PIPELINE")
+    print("                           Kombiniert mit TF-IDF liefert NMF")
+    print("                           die trennschärfsten Cluster (K=5),")
+    print("                           z. B. zu Identitätsdiebstahl & Inkasso.\n")
+    
+    print("DATENSATZ & REPRODUZIERBARKEIT")
+    print("Grundlage ist ein realer Consumer Financial Complaints Datensatz.")
+    print("Er wird automatisch heruntergeladen. Für durchgehend")
+    print("reproduzierbare Ergebnisse ist ein fester Seed (42) gesetzt.\n")
+    
+    print("CREDITS")
+    print("Entwickelt von : StaticFrost-No1")
+    print("Repository     : github.com/StaticFrost-No1/Project-Data-Analysis")
+    print("\n" + "="*65 + "\n")
 
-# Nach der Überarbeitung kann das Programm bei 5b(LDA) auch 100% der Daten verarbeiten, solange ich 1 Core verwende
-
-# Coherence Score wird für b(LDA) berechnet, eignet sich aber auch für a(nmf)
-# c(kmeans) sollte diesen eigentlich nicht nutzen, wir tun dies nur um vergleichbare Beingungen zu schaffen
-#   - Würden wir den Wert nicht selber bestimmen, würde er den Bibliothek Standard von Scikit-learn verwenden - nämlich 8
-#   - NMF würd eine sehr hohe Zahl an Themen bestimmen. Hier wählt man sonst eine Zahl nach eigenem Bedarf
+if __name__ == "__main__":
+    show_info()
