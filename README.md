@@ -199,7 +199,7 @@ Die Ergebnisse der jeweiligen Skripte, wie Pickle-Dateien und Modelle, werden au
 
 Einige Phasen (insbesondere 4 und 5) sind extrem rechenintensiv. Die Konfigurationsblöcke am Anfang der jeweiligen Skripte ermöglichen eine Anpassung an die vorhandene Hardware:
 
-* **SAMPLE_FRAC (in Skript 4):** Passt die Größe des verarbeiteten Teildatensatzes zur Ermittlung der Themenanzahl an (z. B. `0.20` = 20 % der Daten). Ein Wert von `0.60` hat sich als ideal erwiesen, um Abstürze durch die Limitierung des Arbeitsspeichers zu vermeiden, die Rechenzeit im Rahmen zu halten und präzise Ergebnisse zu erhalten.
+* **SAMPLE_FRAC (in Skript 4):** Passt die Größe des verarbeiteten Teildatensatzes zur Ermittlung der Themenanzahl an (z. B. `0.20` = 20 % der Daten). Ein Wert von `0.80` hat sich als ideal erwiesen, um Abstürze durch die Limitierung des Arbeitsspeichers zu vermeiden und präzise Ergebnisse zu erhalten.
 * **NUM_TOPICS (in Skript 5a, 5b, 5c):** Die Anzahl der zu suchenden Themen. Dieser Wert sollte idealerweise dem Ergebnis aus Phase 4 entsprechen und wurde daher auf den Wert `5` gesetzt.
 * **WORDS_PER_TOPIC (in Skript 5a, 5b, 5c):** Legt fest, wie viele Schlüsselwörter pro Thema ausgegeben werden (Standard: 10).
 * **PASSES (in Skript 4 & 5b):** Relevanter Parameter für LDA. Bestimmt die Anzahl der Trainingsdurchläufe. In Phase 4 reicht ein niedriger Wert (`2`), um Trends zu erkennen. Für das finale Modell in Phase 5b wird ein höherer Wert (z. B. `10`) empfohlen.
