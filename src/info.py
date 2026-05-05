@@ -23,7 +23,7 @@ def show_info():
     print("")
     print("  • Pipeline A (K-Means) : Stark abhängig von Rauschen/Tippfehlern.")
     print("  • Pipeline B (LDA)     : Inhaltlich solide, aber unscharf.")
-    print("  • Pipeline C (NMF)     : ⭐ EMPFOHLENE GEWINNER-PIPELINE")
+    print("  • Pipeline C (NMF)     : EMPFOHLENE GEWINNER-PIPELINE")
     print("                           Kombiniert mit TF-IDF liefert NMF")
     print("                           die trennschärfsten Cluster (K=5),")
     print("                           z. B. zu Identitätsdiebstahl & Inkasso.\n")
